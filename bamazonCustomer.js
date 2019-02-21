@@ -71,7 +71,7 @@ function customerPurchase() {
                                 if (error) throw err;
                                 //    * Once the update goes through, show the customer the total cost of their purchase.
 
-                                console.log("Your total was " + res[0].price * answer.quantity + "\nThank you for you purchase!")
+                                console.log("Your total was " + (res[0].price * answer.quantity).toFixed(2) + "\nThank you for you purchase!")
 
                                 start();
                             }
