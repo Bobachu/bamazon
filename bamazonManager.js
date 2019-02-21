@@ -1,32 +1,24 @@
-const mysql = require("mysql");
-const inquirer = require("inquirer");
-const start = require("./app");
+const mysql = require('mysql');
+const inquirer = require('inquirer');
+const start = require('./app');
 
 var connection = mysql.createConnection({
-    host: "localhost",
+    host: 'localhost',
 
     // Your port; if not 3306
     port: 3306,
 
     // Your username
-    user: "root",
+    user: 'root',
 
     // Your password
-    password: "root",
-    database: "bamazon"
+    password: 'root',
+    database: 'bamazon'
 });
 
 
 function manageStore() {
     inquirer.prompt([
-        // View Products for Sale
-
-        // View Low Inventory
-
-        // Add to Inventory
-
-        // Add New Product
-
         {
             name: 'manage',
             type: 'rawlist',
@@ -37,15 +29,19 @@ function manageStore() {
     ]).then(function (answers) {
 
         switch (answers.manage) {
+            // View Products for Sale
             case 'Products for Sale':
                 productList();
                 break;
+            // View Low Inventory
             case 'Check Inventory':
                 inventoryStatus();
                 break;
+            // Add to Inventory
             case 'Add Inventory':
                 addInventory();
                 break;
+            // Add New Product
             case 'Add Product':
                 addproduct();
                 break;
@@ -61,7 +57,7 @@ function manageStore() {
 
 function productList() {
     // * If a manager selects `View Products for Sale`, the app should list every available item: the item IDs, names, prices, and quantities.
-    connection.query("SELECT * FROM products", function (err, res) {
+    connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err;
         console.table(res)
 
@@ -71,7 +67,7 @@ function productList() {
 
 function inventoryStatus() {
     // * If a manager selects `View Low Inventory`, then it should list all items with an inventory count lower than five.
-    connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
+    connection.query('SELECT * FROM products WHERE stock_quantity < 5', function (err, res) {
         if (err) throw err;
         console.table(res)
 
@@ -80,7 +76,7 @@ function inventoryStatus() {
 }
 
 function addInventory() {
-    connection.query("SELECT * FROM products", function (err, res) {
+    connection.query('SELECT * FROM products', function (err, res) {
         if (err) throw err;
         console.table(res)
 
@@ -88,15 +84,15 @@ function addInventory() {
         inquirer.prompt([
             //    * The first should ask them the ID of the product they would like to buy.
             {
-                name: "product",
-                type: "input",
-                message: "Please enter the id of what you would like to add inventory for"
+                name: 'product',
+                type: 'input',
+                message: 'Please enter the id of what you would like to add inventory for'
             },
             //    * The second message should ask how many units of the product they would like to buy.
             {
-                name: "quantity",
-                type: "input",
-                message: "How many would you like to add?",
+                name: 'quantity',
+                type: 'input',
+                message: 'How many would you like to add?',
                 validate: function (value) {
                     if (isNaN(value) === false) {
                         return true;
@@ -107,7 +103,7 @@ function addInventory() {
         ]).then(function (answer) {
             // 7. Once the customer has placed the order, your application should check if your store has enough of the product to meet the customer's request.
             connection.query(
-                "SELECT stock_quantity, product_name FROM products WHERE ?",
+                'SELECT stock_quantity, product_name FROM products WHERE ?',
                 [
                     {
                         id: answer.product
@@ -117,7 +113,7 @@ function addInventory() {
                     if (error) throw err;
                     let quantChange = parseInt(res[0].stock_quantity) + parseInt(answer.quantity)
                     connection.query(
-                        "UPDATE products SET ? WHERE ?",
+                        'UPDATE products SET ? WHERE ?',
                         [
                             {
                                 stock_quantity: quantChange
@@ -128,7 +124,7 @@ function addInventory() {
                         ],
                         function (error) {
                             if (error) throw err;
-                            console.log("You added " + answer.quantity + " to " + res[0].product_name);
+                            console.log('You added ' + answer.quantity + ' to ' + res[0].product_name);
 
 
                         }
