@@ -37,4 +37,5 @@ This option is planned for future development and would allow a supervisor to vi
 
 #### For help and support
 Contact Bob Church at bobachu.developer@gmail.com
+
 Project maintained by Bob Church
