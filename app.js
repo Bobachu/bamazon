@@ -51,7 +51,7 @@ function start() {
                 break;
             case 'Exit':
                 connection.end();
-                break;
+                process.exit(0);
         }
 
     });

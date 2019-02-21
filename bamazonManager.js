@@ -124,15 +124,16 @@ function addInventory() {
                         ],
                         function (error) {
                             if (error) throw err;
+                            
                             console.log('You added ' + answer.quantity + ' to ' + res[0].product_name);
 
+                            manageStore();
 
                         }
                     );
 
                 }
             );
-            manageStore();
         })
     })
 }
