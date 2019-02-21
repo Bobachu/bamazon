@@ -34,3 +34,7 @@ This option allows the user to add a new product to the database.
 
 ### Supervisor
 This option is planned for future development and would allow a supervisor to view total sales by department and to also crete new departments.
+
+#### For help and support
+Contact Bob Church at bobachu.developer@gmail.com
+Project maintained by Bob Church
